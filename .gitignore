@@ -1,0 +1,5 @@
+.DS_Store
+# originals stay in the vault; only web-sized copies are committed
+originals/
+*.mov
+*.MOV
