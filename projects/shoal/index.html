@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SHOAL Simulator — John Ryan Myrdal</title>
+<meta name="description" content="SHOAL: a physics-aware 3D simulator for autonomous underwater vehicles and heterogeneous swarms, built in Unity and C# with recording, replay, and scored mission checks.">
+<link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+<header class="nav">
+  <a class="brand" href="../../">JRM</a>
+  <nav><a href="../../#projects">All projects</a><a href="../../#contact">Contact</a></nav>
+</header>
+<main>
+<section class="hero">
+  <p class="eyebrow">Featured · Simulation · Autonomy · Unity / C# / Python</p>
+  <h1>SHOAL</h1>
+  <p class="lede">A modular, physics-aware 3D simulation environment for autonomous maritime vehicles and heterogeneous swarms: a digital ocean laboratory for building vehicles and worlds, running autonomy experiments, and recording, replaying, and analyzing the results.</p>
+</section>
+
+<section>
+  <h2>Demo</h2>
+  <div class="grid">
+    <figure class="shot">
+      <video controls preload="none" playsinline poster="../../assets/images/shoal/run-1-poster.jpg" width="960"><source src="../../assets/video/shoal/run-1-current-crossing.mp4" type="video/mp4"></video>
+      <figcaption>Mission replay of a five-vehicle capability check (gliders and scout AUVs) at up to 64× speed, with routes drawn on the map, a live minimap, and an event timeline. 60 s.</figcaption>
+    </figure>
+    <figure class="shot">
+      <video controls preload="none" playsinline poster="../../assets/images/shoal/run-2-poster.jpg" width="960"><source src="../../assets/video/shoal/run-2-waypoint-approach.mp4" type="video/mp4"></video>
+      <figcaption>Replay at 1× showing a vehicle on its route past depth markers and the seabed, with per-vehicle telemetry panel. 8 s.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <h2>Problem</h2>
+  <p>Testing autonomous underwater vehicles and swarms at sea is slow, expensive, and risky, and I needed a way to experiment with navigation, current handling, and multi-vehicle behavior before any hardware went in the water, without paying for commercial simulation software.</p>
+</section>
+
+<section>
+  <h2>What I did</h2>
+  <p>Specified and built SHOAL: reusable vehicle modules and standardized map-cube modules assemble into one continuous world. Behaviors produce waypoint routes and requested speeds, vehicle-specific controllers and a physics model execute them, and authoritative simulation state drives the 3D view, telemetry, recording, and replay.</p>
+</section>
+
+<section>
+  <h2>How</h2>
+  <ul>
+    <li><strong>Specification first:</strong> wrote a system charter (over 100 design sections), a swarm protocol for how vehicles behave in operations, and a 33-part blueprint plan (BP-00 to BP-32), with every change recorded in an amendment ledger.</li>
+    <li><strong>Stack:</strong> Unity 6.3 LTS with C# for the simulation, the Universal Render Pipeline and UI Toolkit for the 3D view and dashboard, and Python for orchestration and verification tooling. Free software only, by requirement.</li>
+    <li><strong>World model:</strong> standardized cubes addressed as <code>CubeName(x,y,z)</code>, with local coordinates resolved into one global space and ocean currents modeled.</li>
+    <li><strong>Vehicles:</strong> modular vehicle definitions (for example ScoutAUV and CommandGlider), with a hydrodynamics model (HydroV1) that produces thrust, cross-track drift, water-speed, and station-keeping behavior.</li>
+    <li><strong>Operator interface:</strong> route editor with exact 3D waypoints and speeds, fleet table, selection and follow cameras, telemetry panel, minimap, and a timeline of navigation events.</li>
+    <li><strong>Recording and replay:</strong> every run is recorded frame by frame (tens of thousands of frames per run) and can be replayed at multiple speeds or exported.</li>
+    <li><strong>Verification:</strong> offline schema validation, cross-language contract tests (352 cases) and automated gates, run on a separate execution machine in my Q ecosystem.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Results</h2>
+  <ul>
+    <li>A working Unity application on my own hardware, with a one-cube world, a Scout AUV, gliders, and swarm scenarios, and a dashboard I can drive from a route editor.</li>
+    <li>A complete scenario run: a Scout AUV crossing a current to hold station on three waypoints (30 min scenario, 0.02 s step, seeded and repeatable), and a five-vehicle capability check that completes and scores PASS (score 91.3 on seed 1).</li>
+    <li>Reproducible runs through fixed seeds and frame-level recording, so any run can be replayed and compared.</li>
+    <li>Blueprints BP-00 to BP-32 are built, and all system gates pass. Still ahead: my manual acceptance run and the first real sea trial against the simulation.</li>
+    <li>Zero software cost.</li>
+  </ul>
+</section>
+
+<section>
+  <p><a href="../q-ecosystem/">SHOAL is one project in my Q Ecosystem →</a></p>
+</section>
+</main>
+<footer><a href="../../">← Back to portfolio</a></footer>
+</body>
+</html>
