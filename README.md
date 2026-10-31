@@ -12,7 +12,7 @@ assets/video/  docs/    short clips (<25 MB) and public PDFs
 content/projects/*.md   project write-up drafts (source text)
 scripts/                helper scripts
 ```
-Project slugs: scout, electric-guitar, self-watering-planter, makai-subsea-repair, sediment-dewatering, printer-carriage, turbidity-sensor, robotic-arm, q-ecosystem.
+Project slugs: scout, electric-guitar, self-watering-planter, printer-carriage, turbidity-sensor, robotic-arm, q-ecosystem.
 
 ## Source of truth
 Drafts, notes, and original images live in the Obsidian **Registry** vault under `Portfolio/`.
@@ -21,5 +21,5 @@ Run `scripts/sync-from-vault.sh` to resize and copy vault images into `assets/im
 
 ## Rules
 - Originals never go in this repo (it is public). Keep each image under ~500 KB.
-- Anything from Makai/DARPA work needs explicit approval before it is added.
+- Personal and school projects only. No employer or Makai/DARPA material on the site.
 - Commit messages: short, imperative (`Add SCOUT gallery`).
