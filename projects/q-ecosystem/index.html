@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Q Ecosystem — John Ryan Myrdal</title>
+<meta name="description" content="A personal, local-first compute and software lab that links an M3 MacBook, an older Intel Mac, a university compute pool, and free cloud tiers into one monitored system.">
+<link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+<header class="nav">
+  <a class="brand" href="../../">JRM</a>
+  <nav><a href="../../#projects">All projects</a><a href="../../#contact">Contact</a></nav>
+</header>
+<main>
+<section class="hero">
+  <p class="eyebrow">Systems · software · infrastructure</p>
+  <h1>Q Ecosystem</h1>
+  <p class="lede">A personal, local-first lab that ties together the machines I have access to (a laptop, an older Intel Mac, my university's compute pool, a backup drive, and free cloud tiers) so I can build and run coding projects without paying for infrastructure.</p>
+</section>
+
+<section>
+  <h2>Node map</h2>
+  <figure class="shot"><a href="../../assets/images/q-ecosystem/node-map.jpg"><img src="../../assets/images/q-ecosystem/node-map.jpg" alt="Dark-themed network map of the Q ecosystem showing the Main, Brain and ECC machines, a Backup drive, a Dispatch router, and planned free cloud nodes, with a panel listing recent ECC jobs" loading="lazy"></a><figcaption>Live node map I built: machines, storage, links, and recent jobs on the university pool. Gold nodes are online; grey nodes are planned or disabled.</figcaption></figure>
+</section>
+
+<section>
+  <h2>Problem</h2>
+  <p>I wanted to explore coding projects in simulation, data analysis, monitoring and AI tooling, but did not have the compute or budget for dedicated servers or cloud services. I did have access to scattered resources: my laptop, an old Mac, my school's engineering compute network, and the free tiers that cloud providers offer. The problem was turning those into one usable system rather than a pile of separate machines.</p>
+</section>
+
+<section>
+  <h2>What I did</h2>
+  <p>Designed and built Q: a collection of small, independent projects that share one set of machines and one set of rules. I defined each machine's role, connected them, and built a visualizer so I can see what every node is doing at a glance.</p>
+</section>
+
+<section>
+  <h2>How</h2>
+  <ul>
+    <li><strong>Main</strong> (M3 Max MacBook Pro, 36 GB): interactive development, architecture, and review. It is not an autonomous host.</li>
+    <li><strong>Brain</strong> (older Intel Mac, 16 GiB): the always-available execution machine, reached over a private Tailscale network. It runs deterministic Python services and local Ollama models, and only uses a language model where reasoning is actually needed.</li>
+    <li><strong>ECC</strong> (SCU Engineering Computing Center, a pool of Linux machines): reached only through a gate script that I wrote. The gate runs detached, rule-checked jobs on my university account and enforces limits of 2 jobs, 4 cores, and 16 GiB.</li>
+    <li><strong>Backup:</strong> a 2 TB USB drive attached to Brain, tracked as a storage node.</li>
+    <li><strong>Dispatch:</strong> a software router on Brain that decides which node gets each task. Free cloud nodes (Oracle, Google Cloud, Lightning AI, Kaggle, Colab) are registered but disabled until I approve them, and every one is reached through Brain, never directly.</li>
+    <li><strong>Architecture rules:</strong> Python first, local models only where needed, no continuous cloud-API dependence, and strict isolation between projects. Integration between projects is deliberate, never automatic.</li>
+    <li><strong>Visualizer:</strong> a read-only node-telemetry map driven by a JSON registry of nodes and links, with live probes, job lists, and storage state.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Results</h2>
+  <ul>
+    <li>A working multi-machine system with one registry, one map, and clear rules, running on hardware and free resources I already had.</li>
+    <li>Seventeen registered projects: 1 live, 2 working, 4 scaffold with code, and 10 dormant. Examples include a swarm and maritime simulator, local network anomaly detection, and a multi-model decision council.</li>
+    <li>The university pool has run 206 jobs to completion through the gate (18 failed), including analysis jobs for my senior design project.</li>
+    <li>Compute and storage costs are zero, with an architecture that can add nodes by registering them rather than rebuilding.</li>
+  </ul>
+</section>
+</main>
+<footer><a href="../../">← Back to portfolio</a></footer>
+</body>
+</html>
