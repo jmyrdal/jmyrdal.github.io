@@ -24,7 +24,7 @@
   <div class="grid">
     <figure class="shot">
       <video controls preload="none" playsinline poster="../../assets/images/shoal/run-1-poster.jpg" width="960"><source src="../../assets/video/shoal/run-1-current-crossing.mp4" type="video/mp4"></video>
-      <figcaption>Mission replay of a five-vehicle capability check (gliders and scout AUVs) at up to 64× speed, with routes drawn on the map, a live minimap, and an event timeline. 60 s.</figcaption>
+      <figcaption>Replay of a five-vehicle CapabilityCheck mission (two gliders and three scouts) at up to 64× speed, with routes on the map, a live minimap, and an event timeline. 60 s.</figcaption>
     </figure>
     <figure class="shot">
       <video controls preload="none" playsinline poster="../../assets/images/shoal/run-2-poster.jpg" width="960"><source src="../../assets/video/shoal/run-2-waypoint-approach.mp4" type="video/mp4"></video>
@@ -46,35 +46,39 @@
 
 <section>
   <h2>Problem</h2>
-  <p>Testing autonomous underwater vehicles and swarms at sea is slow, expensive, and risky, and I needed a way to experiment with navigation, current handling, and multi-vehicle behavior before any hardware went in the water, without paying for commercial simulation software.</p>
+  <p>Testing autonomous underwater vehicles and swarms at sea is slow, expensive, and risky. I needed a way to experiment with navigation, current handling, and multi-vehicle behavior before any hardware went in the water, without paying for commercial simulation software.</p>
 </section>
 
 <section>
   <h2>What I did</h2>
   <p>Specified and built SHOAL: reusable vehicle modules and standardized map-cube modules assemble into one continuous world. Behaviors produce waypoint routes and requested speeds, vehicle-specific controllers and a physics model execute them, and authoritative simulation state drives the 3D view, telemetry, recording, and replay.</p>
+  <p><strong>My role:</strong> I wrote the system charter and the swarm protocol (the rules for how vehicles behave in operations), set the requirements (free software only, the scope of the physics, the scoring weights), approved each of the 35 build blueprints, and verified the results on a separate machine.</p>
 </section>
 
 <section>
   <h2>How</h2>
   <ul>
-    <li><strong>Specification first:</strong> wrote a system charter (over 100 design sections), a swarm protocol for how vehicles behave in operations, and a 33-part blueprint plan (BP-00 to BP-32), with every change recorded in an amendment ledger.</li>
-    <li><strong>Stack:</strong> Unity 6.3 LTS with C# for the simulation, the Universal Render Pipeline and UI Toolkit for the 3D view and dashboard, and Python for orchestration and verification tooling. Free software only, by requirement.</li>
-    <li><strong>World model:</strong> standardized cubes addressed as <code>CubeName(x,y,z)</code>, with local coordinates resolved into one global space and ocean currents modeled.</li>
-    <li><strong>Vehicles:</strong> modular vehicle definitions (for example ScoutAUV and CommandGlider), with a hydrodynamics model (HydroV1) that produces thrust, cross-track drift, water-speed, and station-keeping behavior.</li>
-    <li><strong>Operator interface:</strong> route editor with exact 3D waypoints and speeds, fleet table, selection and follow cameras, telemetry panel, minimap, and a timeline of navigation events.</li>
-    <li><strong>Recording and replay:</strong> every run is recorded frame by frame (tens of thousands of frames per run) and can be replayed at multiple speeds or exported.</li>
-    <li><strong>Verification:</strong> offline schema validation, cross-language contract tests (352 cases) and automated gates, run on a separate execution machine in my Q ecosystem.</li>
+    <li><strong>Specification first:</strong> a charter of over 100 design sections, a swarm protocol, and blueprints BP-00 to BP-34, with every change recorded in an amendment ledger.</li>
+    <li><strong>Stack:</strong> Unity 6.3 LTS with C# for the simulation (about 17,800 lines), URP and UI Toolkit for the 3D view and dashboard, and Python (about 22,000 lines) for orchestration and verification tools. Free software only, by requirement.</li>
+    <li><strong>World model:</strong> standardized cubes addressed as <code>CubeName(x,y,z)</code>, resolved into one global space, with modeled ocean currents.</li>
+    <li><strong>Physics (HydroV1):</strong> my own simple force-based model, written in C# with no third-party physics engine. Each 0.02 s tick applies thrust along the vehicle, per-axis linear and quadratic drag, net buoyancy, and inertia with an added-mass factor, with rate-limited turning. Water velocity enters as relative velocity, so currents act on the vehicle. It integrates with semi-implicit Euler (4 substeps, double precision, no randomness), so runs are deterministic. Waves, collisions, thruster detail, and battery are not modeled. Coefficients are plausible placeholders, not calibrated to real hardware.</li>
+    <li><strong>Vehicles:</strong> modular definitions including a Scout AUV, a Command Glider and a surface vessel.</li>
+    <li><strong>Operator interface:</strong> route editor with exact 3D waypoints and speeds, fleet table, follow cameras, telemetry panel, minimap, and an event timeline.</li>
+    <li><strong>Recording and replay:</strong> every run is recorded frame by frame and can be replayed at multiple speeds in a fresh process.</li>
+    <li><strong>Mission scoring (CapabilityCheck):</strong> a mission with 2 Command Gliders and 3 Scout AUVs, run in four variations (nominal, a second seed, acoustic blackout, and loss of the lead). A conformance checker tests each run against the swarm protocol rule by rule, using ground truth the vehicles never see. Any violation scores zero. Otherwise the score is out of 100: mission completion 40, fleet preserved 15, information delivered 15, stealth kept 15, timeliness 10, energy 5.</li>
   </ul>
 </section>
 
 <section>
-  <h2>Results</h2>
+  <h2>Results and validation</h2>
   <ul>
-    <li>A working Unity application on my own hardware, with a one-cube world, a Scout AUV, gliders, and swarm scenarios, and a dashboard I can drive from a route editor.</li>
-    <li>A complete scenario run: a Scout AUV crossing a current to hold station on three waypoints (30 min scenario, 0.02 s step, seeded and repeatable), and a five-vehicle capability check that completes and scores PASS (score 91.3 on seed 1).</li>
-    <li>Reproducible runs through fixed seeds and frame-level recording, so any run can be replayed and compared.</li>
-    <li>Blueprints BP-00 to BP-32 are built, and all system gates pass. Still ahead: my manual acceptance run and the first real sea trial against the simulation.</li>
-    <li>Zero software cost.</li>
+    <li><strong>Physics checked against analytic solutions</strong> (all passing): terminal speed matches thrust equals drag within 1% (the Scout reaches 6.02 m/s at full thrust); speed decays along the drag curve when thrust is cut; a neutrally buoyant vehicle holds depth; a buoyant vehicle rises at the predicted speed; and drift in a current matches the water velocity within 2%.</li>
+    <li><strong>Navigation accuracy:</strong> worst cross-track error on standard maneuvers is 2.3 m for the Scout, 7.3 m for the Glider, and 5.7 m for the surface vessel.</li>
+    <li><strong>Determinism:</strong> two runs give identical frame digests, and a recording replays identically in a fresh process.</li>
+    <li><strong>Test volume:</strong> 291,355 portable physics assertions and 92 Unity EditMode tests for the physics blueprint alone, plus cross-language contract tests.</li>
+    <li><strong>Swarm mission:</strong> the latest CapabilityCheck run set is conformant in all four variations with a combined score of 86.9 out of 100. One run scored 91.3 (the nominal variation), and the stealth metric is the weakest at 0.19&ndash;0.44. The weights are provisional.</li>
+    <li><strong>Performance:</strong> runs in real time on an Intel MacBook Pro (about 42 frames per second in the physics scenario).</li>
+    <li><strong>Limits:</strong> not yet validated against real vehicle data; the first real sea trial and my manual acceptance run are still ahead. Software cost: zero.</li>
   </ul>
 </section>
 
