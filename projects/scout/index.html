@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>S.C.O.U.T. Reef Buoy — John Ryan Myrdal</title>
+<meta name="description" content="Field and mechanical lead on a low-cost, modular nearshore monitoring buoy: hydrostatic stability solver, FEA, test engineering, and project leadership.">
+<link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+<header class="nav">
+  <a class="brand" href="../../">JRM</a>
+  <nav><a href="../../#projects">All projects</a><a href="../../#contact">Contact</a></nav>
+</header>
+<main>
+<section class="hero">
+  <p class="eyebrow">Senior design · Santa Clara University · 2026–2027</p>
+  <h1>S.C.O.U.T. Reef Buoy</h1>
+  <p class="lede">Santa Clara Oceanic Utilities Transmitter: a low-cost, battery-powered, modular nearshore monitoring buoy. Coral reef health is the first mission. I am the field and mechanical lead on a three-person team (mechanical, electrical, software).</p>
+  <p class="cta"><a class="btn" href="https://github.com/David-Chousal/S.C.O.U.T.">Team repository</a></p>
+</section>
+
+<section>
+  <figure class="shot"><img src="../../assets/images/scout/float-mushroom-render.jpg" alt="CAD render of the S.C.O.U.T. mushroom-profile float with electronics housing, 3/4 view and side elevation" width="1600" height="800"><figcaption>Mushroom-profile printed float with electronics housing, 228.6 mm across (CAD, Oct 2026).</figcaption></figure>
+</section>
+
+<section>
+  <h2>Engineering and simulation</h2>
+  <div class="grid">
+    <article class="card"><h3>Hydrostatic stability solver</h3>
+      <p>Python tool that reads the committed STEP geometry, fills it with a 3 mm voxel hull, and computes waterline, freeboard, metacentric height (GM), and the full 0–180° righting-arm curve. Checked against a plain cylinder to about 1% on draft and stiffness, then used to compare 15 float design iterations.</p></article>
+    <article class="card"><h3>Interactive stability explorers</h3>
+      <p>A one-page iteration explorer and a printed-float tip explorer with a heel slider, so teammates and advisors can see how each hull tips without running code.</p></article>
+    <article class="card"><h3>Mass, freeboard, and load model</h3>
+      <p>A written, reproducible recipe for mass, freeboard, and FEA loads, with a multi-agent verification workflow and a math-audit loop.</p></article>
+    <article class="card"><h3>FEA campaign</h3>
+      <p>Nine mooring load cases (uplift, current, wave, combined, overturning, 5 m hydrostatic, snap) run on two hull revisions. The results led to requiring foam fill for the 5 m pressure test. I also reviewed two hang-point FEA reports, found their setups invalid, and filed a ticket to redo them.</p></article>
+  </div>
+</section>
+
+<section>
+  <h2>Design decisions</h2>
+  <ul>
+    <li><strong>Float concept selection:</strong> about 15 documented iterations (snap-fit, bolted wedge, mushroom) narrowed to one printed PETG mushroom float. The ballast stem and a foam second buoy were cancelled along the way.</li>
+    <li><strong>Electronics housing:</strong> sideways PG11 cable-gland deck on the cap, with a planned gland-fit coupon.</li>
+    <li><strong>Hardware and coatings:</strong> 316 stainless, marine sealant, and a prototype spray coat.</li>
+    <li><strong>Hang point:</strong> side through-holes with chamfers, with the rationale logged.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Test engineering and process</h2>
+  <ul>
+    <li><strong>Test-record standard:</strong> printable one-page summaries with the pass mark locked before each run and a stop rule, checked automatically in CI.</li>
+    <li><strong>Requirements test matrix:</strong> 24 requirements across disciplines, surfacing cross-document conflicts (for example target depth and safety factor) and gaps that needed issues filed.</li>
+    <li><strong>Test campaigns:</strong> submersion tests, adhesive and O-ring failure analysis, buoy assembly, and a 4-week saltwater soak plan.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Project leadership</h2>
+  <ul>
+    <li>Gantt, WBS, and critical-path analysis showing the 4-week soak has no slack and must start in early November to meet the December MVP.</li>
+    <li>Weekly activity reports, advisor progress sheets, and Linear project structure (phases, milestones, integration goal).</li>
+  </ul>
+</section>
+</main>
+<footer><a href="../../">← Back to portfolio</a></footer>
+</body>
+</html>
