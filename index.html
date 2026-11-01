@@ -14,10 +14,9 @@
 <header class="nav">
   <a class="brand" href="#top">JRM</a>
   <nav>
-    <a href="#featured">Shoal</a>
+    <a href="#featured">Featured</a>
     <a href="#projects">Projects</a>
     <a href="#experience">Education</a>
-    <a href="#q">Q Ecosystem</a>
     <a href="#skills">Skills</a>
     <a href="#contact">Contact</a>
   </nav>
@@ -34,16 +33,6 @@
   </p>
 </section>
 
-<section id="about">
-  <h2>About</h2>
-  <p>Engineering student at Santa Clara University who builds things end to end: CAD and FEA, design for manufacture, 3D printing and fabrication, electronics, assembly, and testing. My senior design project is a low-cost reef-monitoring buoy, and outside class I build instruments, planters, and a self-hosted computing and AI research environment.</p>
-  <ul class="facts">
-    <li><strong>3.83</strong> GPA, SCU</li>
-    <li><strong>Tau Beta Pi</strong> honor society</li>
-    <li><strong>1st place</strong> Engineering Robotics Contest, 2023</li>
-  </ul>
-</section>
-
 <section id="featured" class="featured">
   <p class="eyebrow">Featured project</p>
   <h2>SHOAL: autonomous underwater vehicle and swarm simulator</h2>
@@ -57,62 +46,36 @@
 </section>
 
 <section id="projects">
-  <h2>Selected projects</h2>
-  <div class="grid">
-
-    <article class="card">
-      <p class="tag">Senior design · 2026–2027</p>
-      <h3>S.C.O.U.T. Reef Buoy</h3>
-      <figure class="shot"><img src="assets/images/scout/float-mushroom-render.jpg" alt="CAD render of the S.C.O.U.T. buoy mushroom-profile float with electronics housing, 3/4 view and side elevation" width="1600" height="800" loading="lazy"><figcaption>Mushroom-profile printed float with electronics housing, 228.6 mm across (CAD, Oct 2026).</figcaption></figure>
-      <p>Santa Clara Oceanic Utilities Transmitter: a low-cost, battery-powered, modular nearshore monitoring buoy. Coral reef health is the first mission; the sensing payload is modular so the same platform can be re-tasked. I am the field and mechanical lead on a three-person team.</p>
-      <ul>
-        <li>Structural design, flotation, waterproofing, sensor packaging, and long-duration deployment requirements.</li>
-        <li>Wrote a Python hydrostatic stability solver (STEP geometry in, righting-arm curve out) used to compare 15 float design iterations; ran a nine-case FEA campaign that set a foam-fill requirement.</li>
-        <li>Hybrid additive-manufacturing and post-processing methods.</li>
-        <li>Informed by interviews with three NOAA coral reef researchers; targeting well under a $5,000 system cost.</li>
-      </ul>
-      <p class="links"><a href="projects/scout/">Full project page</a> · <a href="https://github.com/David-Chousal/S.C.O.U.T.">Repository</a></p>
-    </article>
-
-    <article class="card">
-      <p class="tag">Mechanical design</p>
-      <h3>Printer carriage and rail system</h3>
-      <p>Iterated carriage, roller, bearing-block, and nozzle assemblies, including a series of incrementally sized wheels to tune fit and tolerance.</p>
-      <ul>
-        <li>Fusion 360 assemblies with printed and off-the-shelf hardware.</li>
-      </ul>
-    </article>
-
-    <article class="card">
-      <p class="tag">Marine sensing</p>
-      <h3>Turbidity sensor and float</h3>
-      <p>Sensor housing, electronics housing, and float designs through multiple DFM assembly revisions for the S.C.O.U.T. buoy.</p>
-    </article>
-
-    <article class="card">
-      <p class="tag">Electronics · woodworking</p>
-      <h3>Custom electric guitar</h3>
-      <figure class="shot"><img src="assets/images/electric-guitar/finished-guitar.jpg" alt="Finished white electric guitar with custom electronics" loading="lazy"></figure>
-      <p>Built from a basic kit and re-engineered: a phase-and-coil-split wiring harness (designed for 40+ combinations, scaled back to the ones I use), a routed neck pickup cavity, a thinner neck with upper-fret clearance, and a custom finish. Result: one guitar that covers many styles.</p>
-      <p class="links"><a href="projects/electric-guitar/">Project page</a></p>
-    </article>
-
-    <article class="card">
-      <p class="tag">3D printing · sustainability</p>
-      <h3>Self-watering planter</h3>
-      <figure class="shot"><img src="assets/images/self-watering-planter/printing-on-prusa-mk4.jpg" alt="Planters printing on a Prusa MK4" loading="lazy"></figure>
-      <p>A PETG planter designed in Onshape for the basil and rosemary I cook with. Roots draw water from a cavity below each pot. Printed three per plate on a Prusa MK4 after tuning out early print failures.</p>
-      <p class="links"><a href="projects/self-watering-planter/">Project page</a></p>
-    </article>
-
-    <article class="card">
-      <p class="tag">Mechatronics</p>
-      <h3>Robotic arm</h3>
-      <p>Sensor integration, servo control, microcontroller logic, and mechanical linkage optimization.</p>
-    </article>
-
+  <div class="phead">
+    <h2>Projects</h2>
+    <div class="filters" role="group" aria-label="Filter projects">
+      <button class="on" data-f="all">All</button><button data-f="hw">Hardware</button><button data-f="sw">Software (Q)</button>
+    </div>
   </div>
-  <p class="note">More projects with photos, CAD renders, and test data are being added.</p>
+  <div class="tiles">
+      <a class="tile" data-kind="hw" href="projects/scout/"><div class="tmedia"><img src="assets/images/scout/float-mushroom-render.jpg" alt="CAD render of the SCOUT buoy float" loading="lazy"></div><div class="tbody"><p class="tags"><span class="badge hw">Hardware · Senior design</span></p><h3>S.C.O.U.T. reef buoy</h3><p>Low-cost modular marine sensing buoy. Float design, stability solver, FEA, and test engineering.</p></div></a>
+      <a class="tile" data-kind="sw" href="projects/shoal/"><div class="tmedia"><img src="assets/images/shoal/run-2-poster.jpg" alt="SHOAL simulator replay" loading="lazy"></div><div class="tbody"><p class="tags"><span class="badge sw">Software · Q ecosystem</span><span class="status">scaffold</span></p><h3>SHOAL simulator</h3><p>Physics-aware 3D swarm simulator in Unity and C#, with recording, replay, and scored missions.</p></div></a>
+      <a class="tile" data-kind="sw" href="projects/q-ecosystem/"><div class="tmedia"><img src="assets/images/q-ecosystem/node-map.jpg" alt="Q ecosystem node map" loading="lazy"></div><div class="tbody"><p class="tags"><span class="badge sw">Software · Q ecosystem</span><span class="status">hub</span></p><h3>Q Ecosystem</h3><p>A local-first compute lab linking a laptop, an older Mac, a university account, and free cloud tiers.</p></div></a>
+      <a class="tile" data-kind="hw" href="projects/electric-guitar/"><div class="tmedia"><img src="assets/images/electric-guitar/finished-guitar.jpg" alt="Finished electric guitar" loading="lazy"></div><div class="tbody"><p class="tags"><span class="badge hw">Hardware · Electronics</span></p><h3>Custom electric guitar</h3><p>Kit rebuilt with a phase and coil-split wiring harness, routed cavities, and a custom finish.</p></div></a>
+      <a class="tile" data-kind="hw" href="projects/self-watering-planter/"><div class="tmedia"><img src="assets/images/self-watering-planter/printing-on-prusa-mk4.jpg" alt="Planters printing on a Prusa MK4" loading="lazy"></div><div class="tbody"><p class="tags"><span class="badge hw">Hardware · 3D printing</span></p><h3>Self-watering planter</h3><p>PETG herb planter designed in Onshape; roots draw from a reservoir below each pot.</p></div></a>
+      <a class="tile" data-kind="sw" href="projects/q-ecosystem/#projects"><div class="tmedia"><div class="ph" aria-hidden="true"></div></div><div class="tbody"><p class="tags"><span class="badge sw">Software · Q ecosystem</span><span class="status">working</span></p><h3>Q Sentinel</h3><p>Local network monitoring and anomaly detection.</p></div></a>
+      <a class="tile" data-kind="sw" href="projects/q-ecosystem/#projects"><div class="tmedia"><div class="ph" aria-hidden="true"></div></div><div class="tbody"><p class="tags"><span class="badge sw">Software · Q ecosystem</span><span class="status">working</span></p><h3>Q Concierge</h3><p>A pixel-art personality that serves as the front end of the ecosystem.</p></div></a>
+      <a class="tile" data-kind="sw" href="projects/q-ecosystem/#projects"><div class="tmedia"><div class="ph" aria-hidden="true"></div></div><div class="tbody"><p class="tags"><span class="badge sw">Software · Q ecosystem</span><span class="status">scaffold</span></p><h3>Q Senate</h3><p>Model-agnostic decision council with critique and deterministic voting.</p></div></a>
+      <div class="tile soon" data-kind="hw"><div class="tmedia"><div class="ph" aria-hidden="true"></div></div><div class="tbody"><p class="tags"><span class="badge hw">Hardware · Marine sensing</span></p><h3>Turbidity sensor and float</h3><p>Sensor and electronics housings through multiple DFM revisions. Write-up coming.</p></div></div>
+      <div class="tile soon" data-kind="hw"><div class="tmedia"><div class="ph" aria-hidden="true"></div></div><div class="tbody"><p class="tags"><span class="badge hw">Hardware · Mechanical</span></p><h3>Printer carriage and rails</h3><p>Carriage, roller, and bearing-block assemblies with tolerance iterations. Write-up coming.</p></div></div>
+      <div class="tile soon" data-kind="hw"><div class="tmedia"><div class="ph" aria-hidden="true"></div></div><div class="tbody"><p class="tags"><span class="badge hw">Hardware · Mechatronics</span></p><h3>Robotic arm</h3><p>Sensor integration, servo control, and linkage optimization. Write-up coming.</p></div></div>
+  </div>
+  <p class="note">Software projects belong to the Q ecosystem, my local compute and software lab. Status labels are as of late October 2026.</p>
+</section>
+
+<section id="about">
+  <h2>About</h2>
+  <p>Engineering student at Santa Clara University who builds things end to end: CAD and FEA, design for manufacture, 3D printing and fabrication, electronics, assembly, and testing. My senior design project is a low-cost reef-monitoring buoy, and outside class I build instruments, planters, and a self-hosted computing and AI research environment.</p>
+  <ul class="facts">
+    <li><strong>3.83</strong> GPA, SCU</li>
+    <li><strong>Tau Beta Pi</strong> honor society</li>
+    <li><strong>1st place</strong> Engineering Robotics Contest, 2023</li>
+  </ul>
 </section>
 
 <section id="experience">
@@ -131,21 +94,6 @@
       <p>GPA 4.84/5.0. Excellence awards in Mathematics, Physics, and History.</p>
     </div>
   </div>
-</section>
-
-<section id="q">
-  <h2>Q Ecosystem</h2>
-  <p>Q is a personal, local-first collection of small experimental projects in software, AI, engineering, and research, run on my own machines rather than depending on cloud APIs at runtime. Each project has a clear identity, a small initial scope, and room to grow; integration between them is deliberate, never automatic.</p>
-  <p><a href="projects/q-ecosystem/">Read the full write-up and node map →</a></p>
-  <div class="chips">
-    <div class="chip"><strong><a href="projects/shoal/">Q Shoal</a></strong><span>Physics-aware 3D maritime and heterogeneous swarm simulation (featured)</span></div>
-    <div class="chip"><strong>Q Sentinel</strong><span>Local network monitoring and anomaly detection</span></div>
-    <div class="chip"><strong>Q Senate</strong><span>Model-agnostic decision council with critique and deterministic voting</span></div>
-    <div class="chip"><strong>Q Librarian</strong><span>Local intelligence and knowledge layer for my notes</span></div>
-    <div class="chip"><strong>Q Tournament</strong><span>Benchmarking framework for models, agents, and algorithms</span></div>
-    <div class="chip"><strong>Q Arena</strong><span>Isolated attacker-vs-defender cyber range</span></div>
-  </div>
-  <p class="note">Seventeen projects are registered; these are a selection. Write-ups and demos are coming.</p>
 </section>
 
 <section id="skills">
