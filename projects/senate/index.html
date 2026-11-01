@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Senate — John Ryan Myrdal</title>
+<meta name="description" content="Senate: a model-agnostic decision council in which role-specialist AI senators propose, critics challenge, and plain Python decides and scores. Part of the Q ecosystem.">
+<link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+<header class="nav">
+  <a class="brand" href="../../">JRM</a>
+  <nav><a href="../../#projects">All projects</a><a href="../../#contact">Contact</a></nav>
+</header>
+<main>
+<section class="hero">
+  <p class="eyebrow">Software · Q ecosystem · AI systems design · Python</p>
+  <h1>Senate</h1>
+  <p class="lede">A decision council for AI models: specialist "senators" propose, critics challenge, and deterministic Python code decides, records, and scores the outcome, so no single model's confidence can overrule the evidence. Built offline and tested with synthetic data; no agents are active yet.</p>
+</section>
+
+<section>
+  <h2>Interface</h2>
+  <div class="grid">
+    <figure class="shot"><a href="../../assets/images/senate/chamber.jpg"><img src="../../assets/images/senate/chamber.jpg" alt="Senate chamber view showing six specialist senators (Technical, Fundamentals, Sentiment, Institutional, Macro, Volatility) connected to evidence and critic nodes, converging on a NO TRADE decision with six failed gates" loading="lazy"></a><figcaption>Chamber: six specialist senators, each with its own evidence, prediction, and review links, converge on a decision. Here the replayed run ends in NO TRADE because six gates failed.</figcaption></figure>
+    <figure class="shot"><a href="../../assets/images/senate/node.jpg"><img src="../../assets/images/senate/node.jpg" alt="Senate node view showing one senator's role, model, version, weight, critic, and its recorded prediction" loading="lazy"></a><figcaption>Node: one senator's identity (role, model, versions, weight, assigned critic) and its recorded predictions, reviews, and evaluations. The senator is disabled in this offline build.</figcaption></figure>
+    <figure class="shot"><a href="../../assets/images/senate/activity.jpg"><img src="../../assets/images/senate/activity.jpg" alt="Senate activity log of 147 recorded events grouped by meetings, council, evidence, scoring, administration, and other" loading="lazy"></a><figcaption>Activity: every action is a recorded event (147 in this run), filterable by category: meetings, council, evidence, scoring, learning, administration.</figcaption></figure>
+  </div>
+</section>
+
+<section>
+  <h2>Problem</h2>
+  <p>A single language model asked for a decision will sound confident whether or not it is right, and it cannot reliably grade itself. I wanted a structure where different specialists look at the same evidence, other agents attack their reasoning, and the final decision and the scoring come from transparent rules, not from any model's say-so.</p>
+</section>
+
+<section>
+  <h2>What I did</h2>
+  <p>Designed and specified Senate: identities, memory, and instructions belong to the council, not to any model or provider, so a senator can be moved between models without losing its history. Senators propose, critics challenge, Python decides and measures, and learning is controlled by me.</p>
+  <p><strong>My role:</strong> I design the architecture and rules, write the specifications, approve each build step, and verify results. AI coding agents write much of the code under those rules.</p>
+</section>
+
+<section>
+  <h2>How</h2>
+  <ul>
+    <li><strong>Six role-specialist senators</strong> (Technical, Fundamentals, Sentiment, Institutional, Macro, Volatility), each with a written role contract and instructions, plus critics that review each prediction.</li>
+    <li><strong>Pipeline:</strong> senator predictions, critic reviews, immutable revisions, a Chamber decision, a supplied outcome, an evaluator, identity histories, hypotheses, and owner-validated instruction changes.</li>
+    <li><strong>Deterministic core:</strong> consensus, empirical probability, and expected net return are kept independent, and missing data or failed gates produce NO TRADE. Senators and critics cannot change governance, scores, weights, or active instructions.</li>
+    <li><strong>Evidence validation:</strong> unsupported claims are rejected before voting, so each role may only use evidence relevant to it.</li>
+    <li><strong>Model-agnostic gateway:</strong> bounded adapters for hosted models and local models, where hosted calls need per-call opt-in and no autonomous hosted loop is authorized.</li>
+    <li><strong>Engineering choices:</strong> Python standard library only, with no dependencies or services, SQLite as the authoritative record, versioned configuration, and a module checklist updated with every build change.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Results</h2>
+  <ul>
+    <li>A working offline council: strict records, six role definitions, archives, versioned configuration, voting and scoring, owner-reviewed learning, and bounded weight adjustments, exercised end to end with synthetic tests.</li>
+    <li>A read-only dashboard that replays an acceptance run step by step (36 recorded steps in the replay shown) and shows every event and every senator's record.</li>
+    <li>The fail-safe behaves as designed: the replayed run correctly outputs NO TRADE when six gates fail.</li>
+    <li>Honest status: scaffold with code. All senators are disabled, no live agent has been run, and its value as a decision aid has not been measured.</li>
+  </ul>
+</section>
+
+<section>
+  <p><a href="../q-ecosystem/">Senate is part of my Q Ecosystem →</a></p>
+</section>
+</main>
+<footer><a href="../../">← Back to portfolio</a></footer>
+</body>
+</html>
