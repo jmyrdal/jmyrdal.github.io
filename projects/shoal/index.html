@@ -46,13 +46,13 @@
 
 <section>
   <h2>Problem</h2>
-  <p>Testing autonomous underwater vehicles and swarms at sea is slow, expensive, and risky. I needed a way to experiment with navigation, current handling, and multi-vehicle behavior before any hardware went in the water, without paying for commercial simulation software.</p>
+  <p>I designed a swarm protocol: a written set of rules for how a group of autonomous underwater vehicles should act in operations, covering safety, command and succession, communication, rendezvous and relay, and loss and recovery. I wanted to know whether that protocol could actually be run and scored in simulation, and I did not want to depend on paid simulation software to find out. SHOAL is my own project, built to explore that question.</p>
 </section>
 
 <section>
   <h2>What I did</h2>
   <p>Specified and built SHOAL: reusable vehicle modules and standardized map-cube modules assemble into one continuous world. Behaviors produce waypoint routes and requested speeds, vehicle-specific controllers and a physics model execute them, and authoritative simulation state drives the 3D view, telemetry, recording, and replay.</p>
-  <p><strong>My role:</strong> I wrote the system charter and the swarm protocol (the rules for how vehicles behave in operations), set the requirements (free software only, the scope of the physics, the scoring weights), approved each of the 35 build blueprints, and verified the results on a separate machine.</p>
+  <p><strong>My role:</strong> I wrote the system charter and the swarm protocol, set the requirements (free software only, the scope of the physics, the scoring weights), approved each of the 35 build blueprints, and verified the results on a separate machine. AI coding agents (Claude) implemented the blueprints under my direction.</p>
 </section>
 
 <section>
@@ -61,7 +61,7 @@
     <li><strong>Specification first:</strong> a charter of over 100 design sections, a swarm protocol, and blueprints BP-00 to BP-34, with every change recorded in an amendment ledger.</li>
     <li><strong>Stack:</strong> Unity 6.3 LTS with C# for the simulation (about 17,800 lines), URP and UI Toolkit for the 3D view and dashboard, and Python (about 22,000 lines) for orchestration and verification tools. Free software only, by requirement.</li>
     <li><strong>World model:</strong> standardized cubes addressed as <code>CubeName(x,y,z)</code>, resolved into one global space, with modeled ocean currents.</li>
-    <li><strong>Physics (HydroV1):</strong> my own simple force-based model, written in C# with no third-party physics engine. Each 0.02 s tick applies thrust along the vehicle, per-axis linear and quadratic drag, net buoyancy, and inertia with an added-mass factor, with rate-limited turning. Water velocity enters as relative velocity, so currents act on the vehicle. It integrates with semi-implicit Euler (4 substeps, double precision, no randomness), so runs are deterministic. Waves, collisions, thruster detail, and battery are not modeled. Coefficients are plausible placeholders, not calibrated to real hardware.</li>
+    <li><strong>Physics (HydroV1):</strong> my own simple force-based model, written in C# with no third-party physics engine. Each 0.02 s tick applies thrust along the vehicle, per-axis linear and quadratic drag, net buoyancy, and inertia with an added-mass factor, with rate-limited turning. Water velocity enters as relative velocity, so currents act on the vehicle. It integrates with semi-implicit Euler (4 substeps, double precision, no randomness), so runs are deterministic. Waves, collisions, thruster detail, and battery are not modeled. The force forms are standard marine-vehicle dynamics; I did not work from a specific cited source. Coefficients are plausible placeholders, not calibrated to real hardware.</li>
     <li><strong>Vehicles:</strong> modular definitions including a Scout AUV, a Command Glider and a surface vessel.</li>
     <li><strong>Operator interface:</strong> route editor with exact 3D waypoints and speeds, fleet table, follow cameras, telemetry panel, minimap, and an event timeline.</li>
     <li><strong>Recording and replay:</strong> every run is recorded frame by frame and can be replayed at multiple speeds in a fresh process.</li>
