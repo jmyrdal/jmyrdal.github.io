@@ -117,5 +117,12 @@
 
 <footer>© <span id="y">2026</span> John Ryan Myrdal</footer>
 <script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+<script>
+document.querySelectorAll('.filters button').forEach(function(b){b.addEventListener('click',function(){
+  document.querySelectorAll('.filters button').forEach(function(x){x.classList.toggle('on',x===b)});
+  var f=b.dataset.f;
+  document.querySelectorAll('.tile').forEach(function(t){t.hidden=!(f==='all'||t.dataset.kind===f)});
+});});
+</script>
 </body>
 </html>
