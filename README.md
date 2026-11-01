@@ -21,5 +21,5 @@ Run `scripts/sync-from-vault.sh` to resize and copy vault images into `assets/im
 
 ## Rules
 - Originals never go in this repo (it is public). Keep each image under ~500 KB.
-- Personal and school projects only. No employer or Makai/DARPA material on the site.
+- Personal and school projects only.
 - Commit messages: short, imperative (`Add SCOUT gallery`).
