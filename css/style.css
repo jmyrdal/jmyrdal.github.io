@@ -70,3 +70,5 @@ a.tile:hover{border-color:var(--accent);transform:translateY(-2px)}
 .badge.sw{color:var(--accent);border-color:var(--accent)}
 .status{font-size:10.5px;color:var(--muted)}
 .tile.soon{opacity:.75}
+.vcrop{aspect-ratio:1600/1005;overflow:hidden;border-radius:8px;border:1px solid var(--line);background:#000}
+.vcrop video{width:100%;height:100%;object-fit:cover;object-position:top;border:0;border-radius:0}
