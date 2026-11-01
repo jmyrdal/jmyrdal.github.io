@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SwingLab — John Ryan Myrdal</title>
+<meta name="description" content="SwingLab: a paper-trading research and portfolio system with a staged validation funnel, strategy import and backtesting, and hard safety limits. Part of the Q ecosystem.">
+<link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+<header class="nav">
+  <a class="brand" href="../../">JRM</a>
+  <nav><a href="../../#projects">All projects</a><a href="../../#contact">Contact</a></nav>
+</header>
+<main>
+<section class="hero">
+  <p class="eyebrow">Software · Q ecosystem · Research pipeline · Paper trading only</p>
+  <h1>SwingLab</h1>
+  <p class="lede">A distributed research and portfolio system that searches for swing-trading rules, pushes every candidate through a staged validation funnel, and only then lets the survivors trade, on a simulated paper account. Research and educational project; not investment advice and no real money.</p>
+</section>
+
+<section>
+  <h2>Dashboard</h2>
+  <div class="grid">
+    <figure class="shot"><a href="../../assets/images/swinglab/factory-flow.jpg"><img src="../../assets/images/swinglab/factory-flow.jpg" alt="SwingLab Factory Flow view showing shared data infrastructure, a research plane, a trading plane, and an isolated read-only monitor" loading="lazy"></a><figcaption>Factory Flow: the whole pipeline as a live diagram. Shared data and infrastructure feed a research plane (propose, synthesize, split, backtest, stress) and a separate trading plane (scan, review, size risk, paper-trade, reconcile), with an isolated read-only monitor.</figcaption></figure>
+    <figure class="shot"><a href="../../assets/images/swinglab/research.jpg"><img src="../../assets/images/swinglab/research.jpg" alt="SwingLab Research view with campaign table, validation funnel rejects by stage, strategy families, and a leaderboard" loading="lazy"></a><figcaption>Research: campaigns, the validation funnel (rejects by stage), strategy families, and a leaderboard ranked by a composite score.</figcaption></figure>
+    <figure class="shot"><a href="../../assets/images/swinglab/pine-lab.jpg"><img src="../../assets/images/swinglab/pine-lab.jpg" alt="SwingLab Pine Lab view listing imported PineScript strategy runs with CAGR, Sharpe, drawdown, and an equity curve" loading="lazy"></a><figcaption>Pine Lab: imports external PineScript strategies and backtests them with trading costs. Imported strategies are backtest-only and never trade.</figcaption></figure>
+    <figure class="shot"><a href="../../assets/images/swinglab/overall-system.jpg"><img src="../../assets/images/swinglab/overall-system.jpg" alt="SwingLab overall system view with job queues and the control node's CPU, memory, and disk" loading="lazy"></a><figcaption>Overall system: work queues and the health of the machine that runs the workers.</figcaption></figure>
+  </div>
+</section>
+
+<section>
+  <h2>Problem</h2>
+  <p>Most simple trading ideas look good in a backtest and fail afterwards, because of overfitting, look-ahead leaks, ignored costs, and luck. I wanted a system that treats every idea with suspicion, tests it the same strict way every time, and keeps a hard wall between research, simulated trading, and any real money.</p>
+</section>
+
+<section>
+  <h2>What I did</h2>
+  <p>Designed SwingLab as a set of deterministic workers and local language-model agents coordinated through queues, with a research plane that discovers and validates rules, a trading plane that paper-trades only validated candidates, and a read-only dashboard that shows everything.</p>
+  <p><strong>My role:</strong> I design the architecture and the safety rules, write the specifications, approve each build step, and verify results. AI coding agents write much of the code under those rules.</p>
+</section>
+
+<section>
+  <h2>How</h2>
+  <ul>
+    <li><strong>Deterministic first:</strong> workers on the Brain machine do the data ingestion, indicators, backtests, and scoring in Python. Local language models (Ollama) are used only for review and synthesis steps where reasoning is needed, and Claude is used for orchestration and review, not as a trading actor.</li>
+    <li><strong>Validation funnel:</strong> each candidate passes, in order, a leakage audit, a development/holdout split, a cost screen, parameter robustness, walk-forward testing, Monte Carlo, execution stress, and a sealed holdout the research never sees. Rejects are counted at every stage.</li>
+    <li><strong>Pine Lab:</strong> imports external PineScript strategies, checks them against a grammar, and backtests them with costs (for example 3 bps round trip). Imports that fail the check are rejected with errors. Imported strategies are backtest-only and are never paper or live traded.</li>
+    <li><strong>Safety by design:</strong> a staged autonomy ladder (disabled, dry run, paper, live) with signed limits (position sleeve, exposure, daily loss, drawdown, orders per day) and halts that block new entries. The dashboard is visualization only, with no order controls. Claude never places, stages, or approves orders, no other project gets broker credentials, and any live order would need my explicit approval.</li>
+    <li><strong>Observability:</strong> a six-view dashboard (overall system, research, trading, portfolio, factory flow, Pine Lab) and an isolated monitor in the Q ecosystem that only reads.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Results</h2>
+  <ul>
+    <li>A live system on my own hardware: orchestrator, worker fleet, and dashboard running on Brain, with a paper trader running continuously since October 15, 2026.</li>
+    <li>Ten completed research campaigns of 15 experiments each. The validation funnel does its job: in the run shown, most candidates were rejected at the cost screen (27), walk-forward (108), and the holdout (23), with only a handful surviving to champion status.</li>
+    <li>Strategy import works end to end: five Pine Lab runs, including two rejected by the grammar check, and honest backtest numbers for the ones that passed (for example a Python mean-reversion import with 0.7% CAGR, Sharpe 0.65, and max drawdown 1.8% on one stock). Modest results are expected and are the point: nothing is promoted on a good-looking curve alone.</li>
+    <li>Hard safety limits that I verify: paper-only trading, visualization-only dashboard, and signed risk limits.</li>
+  </ul>
+  <p class="note">Simulated paper trading only. Nothing here is investment advice, and no real money is traded.</p>
+</section>
+
+<section>
+  <p><a href="../q-ecosystem/">SwingLab is the live project in my Q Ecosystem →</a></p>
+</section>
+</main>
+<footer><a href="../../">← Back to portfolio</a></footer>
+</body>
+</html>
