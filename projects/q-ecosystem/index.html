@@ -21,40 +21,46 @@
 
 <section>
   <h2>Node map</h2>
-  <figure class="shot"><a href="../../assets/images/q-ecosystem/node-map.jpg"><img src="../../assets/images/q-ecosystem/node-map.jpg" alt="Dark-themed network map of the Q ecosystem showing the Main, Brain and ECC machines, a Backup drive, a Dispatch router, and planned free cloud nodes, with a panel listing recent ECC jobs" loading="lazy"></a><figcaption>Live node map I built: machines, storage, links, and recent jobs on the university pool. Gold nodes are online; grey nodes are planned or disabled.</figcaption></figure>
+  <figure class="shot"><a href="../../assets/images/q-ecosystem/node-map.jpg"><img src="../../assets/images/q-ecosystem/node-map.jpg" alt="Dark-themed network map of the Q ecosystem showing the Main, Brain and ECC machines, a backup drive, a Dispatch router, and planned free cloud nodes" loading="lazy"></a><figcaption>Node map from the visualizer: machines, storage, links, and planned free cloud nodes. Gold nodes are online or connected; grey nodes are planned or disabled.</figcaption></figure>
 </section>
 
 <section>
   <h2>Problem</h2>
-  <p>I wanted to explore coding projects in simulation, data analysis, monitoring and AI tooling, but did not have the compute or budget for dedicated servers or cloud services. I did have access to scattered resources: my laptop, an old Mac, my school's engineering compute network, and the free tiers that cloud providers offer. The problem was turning those into one usable system rather than a pile of separate machines.</p>
+  <p>I wanted to explore coding projects in simulation, data analysis, monitoring and AI tooling, but did not have the compute or budget for dedicated servers or cloud services. I did have access to scattered resources: my laptop, an older Mac, my school's engineering compute account, and the free tiers that cloud providers offer. The problem was turning those into one usable system rather than a pile of separate machines.</p>
 </section>
 
 <section>
   <h2>What I did</h2>
-  <p>Designed and built Q: a collection of small, independent projects that share one set of machines and one set of rules. I defined each machine's role, connected them, and built a visualizer so I can see what every node is doing at a glance.</p>
-  <p><strong>My role:</strong> I designed the architecture, set the rules for each machine and project, and decided what runs where. AI coding agents (Claude and Codex) wrote much of the code under my direction, and I review and approve the changes.</p>
+  <p>Designed Q: a collection of small, independent projects that share a few machines and one set of rules. I defined each machine's role, set the rules for what may run where, and had a node-map visualizer built so I can see what every node is doing at a glance.</p>
+  <p><strong>My role:</strong> I design the architecture and rules, write the specifications, approve each build step, and verify results on separate machines. AI coding agents (Claude and Codex) write much of the code under those rules.</p>
 </section>
 
 <section>
   <h2>How</h2>
+  <h3>Machines</h3>
   <ul>
     <li><strong>Main</strong> (M3 Max MacBook Pro, 36 GB): interactive development, architecture, and review. It is not an autonomous host.</li>
-    <li><strong>Brain</strong> (older Intel Mac, 16 GiB): the always-available execution machine, reached over a private Tailscale network. It runs deterministic Python services and local Ollama models, and only uses a language model where reasoning is actually needed.</li>
-    <li><strong>ECC</strong> (SCU Engineering Computing Center, a pool of Linux machines): reached only through a gate script that I wrote. The gate runs detached, rule-checked jobs on my university account and enforces limits of 2 jobs, 4 cores, and 16 GiB.</li>
+    <li><strong>Brain</strong> (older Intel Mac, 16 GiB): the primary execution machine, reached over a private Tailscale network. It runs deterministic Python and local Ollama models.</li>
+    <li><strong>ECC</strong> (my university engineering computing account): used on demand only, through a guard script (the "Gate"). I run capped, low-priority research jobs (at most 4 cores, 16 GiB, 2 hours, 2 at a time) and the guard enforces those limits.</li>
     <li><strong>Backup:</strong> a 2 TB USB drive attached to Brain, tracked as a storage node.</li>
-    <li><strong>Dispatch:</strong> a software router on Brain that decides which node gets each task. Free cloud nodes (Oracle, Google Cloud, Lightning AI, Kaggle, Colab) are registered but disabled until I approve them, and every one is reached through Brain, never directly.</li>
-    <li><strong>Architecture rules:</strong> Python first, local models only where needed, no continuous cloud-API dependence, and strict isolation between projects. Integration between projects is deliberate, never automatic.</li>
-    <li><strong>Visualizer:</strong> a read-only node-telemetry map driven by a JSON registry of nodes and links, with live probes, job lists, and storage state.</li>
+    <li><strong>Dispatch:</strong> a routing layer on Brain, planned to send tasks to free cloud nodes. Today it is a working skeleton with routing code and 14 tests, and one free cloud VM connected for a demo task. The other free-tier nodes (Google Cloud, Lightning AI, Kaggle, Colab) are registered but disabled.</li>
+  </ul>
+  <h3>Design decisions</h3>
+  <ul>
+    <li><strong>Local-first, deterministic Python.</strong> Python does the deterministic work, local models on Brain handle any language reasoning, and Claude is used interactively for development and review, never as part of an autonomous loop. The stated reason: not to architect around continuous cloud-model or API usage.</li>
+    <li><strong>Strict project isolation.</strong> Projects are independent by default, and integration is added deliberately only when it is useful.</li>
+    <li><strong>Nothing runs in the background without approval.</strong> No service, schedule, or autonomous agent starts without explicit approval in that session. Scaffolding something is not permission to run it.</li>
+    <li><strong>One guarded portal to the university account.</strong> The Gate checks every job, push, and status request and logs the decision. It blocks direct ssh, enforces the resource caps at lowest priority, refuses detached or scheduled jobs, rejects secrets in commands and pushes, and a watchdog kills over-limit jobs.</li>
   </ul>
 </section>
 
 <section>
   <h2>Results</h2>
   <ul>
-    <li>A working multi-machine system with one registry, one map, and clear rules, running on hardware and free resources I already had.</li>
-    <li>Seventeen registered projects: 1 live, 2 working, 4 scaffold with code, and 10 dormant. Examples include a swarm and maritime simulator, local network anomaly detection, and a multi-model decision council.</li>
-    <li>The university pool has run 206 jobs to completion through the gate (18 failed), including analysis jobs for my senior design project.</li>
-    <li>Compute and storage costs are zero, with an architecture that can add nodes by registering them rather than rebuilding.</li>
+    <li>A working multi-machine system with one registry, one node map, and written rules, running on hardware and free resources I already had. Software and compute cost: zero.</li>
+    <li>Roughly 137,000 lines of Python and 18,000 lines of C# (including tests and fixtures) across the ecosystem, in 844 commits since September 13, 2026.</li>
+    <li>Seventeen registered projects: 1 live, 2 working, 4 scaffold with code, and 10 dormant. Examples include a swarm and maritime simulator (<a href="../shoal/">SHOAL</a>), local network monitoring, and a multi-model decision council.</li>
+    <li>The guard script's audit log records each job and push it allowed or denied.</li>
   </ul>
 </section>
 </main>
