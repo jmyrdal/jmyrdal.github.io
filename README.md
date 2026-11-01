@@ -12,7 +12,7 @@ assets/video/  docs/    short clips (<25 MB) and public PDFs
 content/projects/*.md   project write-up drafts (source text)
 scripts/                helper scripts
 ```
-Project slugs: shoal, q-ecosystem, scout, electric-guitar, self-watering-planter, printer-carriage, turbidity-sensor, robotic-arm, q-ecosystem.
+Project slugs: shoal, q-ecosystem, scout, electric-guitar, self-watering-planter, robotic-arm, q-ecosystem.
 
 ## Source of truth
 Drafts, notes, and original images live in the Obsidian **Registry** vault under `Portfolio/`.
