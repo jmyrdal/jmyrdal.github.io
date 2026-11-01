@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Helm — John Ryan Myrdal</title>
+<meta name="description" content="Helm: a locally run market-intelligence and forecasting lab that turns sourced evidence into traceable signals, starting with a weekly US crude-oil inventory check. Part of the Q ecosystem.">
+<link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+<header class="nav">
+  <a class="brand" href="../../">JRM</a>
+  <nav><a href="../../#projects">All projects</a><a href="../../#contact">Contact</a></nav>
+</header>
+<main>
+<section class="hero">
+  <p class="eyebrow">Software · Q ecosystem · Data pipeline · Forecasting lab</p>
+  <h1>Helm</h1>
+  <p class="lede">A locally operated forecasting lab that watches real-world data, decides whether anything is unusual enough to matter, and records every step from evidence to conclusion so it can be audited. It starts with energy: a weekly check of US crude-oil inventories. Research project; not investment advice.</p>
+</section>
+
+<section>
+  <h2>Weekly report</h2>
+  <figure class="shot"><a href="../../assets/images/helm/weekly-energy-report.jpg"><img src="../../assets/images/helm/weekly-energy-report.jpg" alt="Helm Energy weekly report showing US crude stocks of 410.6 million barrels, a weekly draw of 1.892 million barrels, a z-score of -0.31 against a threshold of 2, a no-signal result, a chart of weekly changes, and a table of findings with sources" loading="lazy"></a><figcaption>Helm's weekly Energy report (read-only snapshot, week ending Oct 23, 2026): the latest reading, how unusual it is against the past year, the decision (here, no signal and no new forecast), and every finding with its source, reliability, and what it was used for.</figcaption></figure>
+</section>
+
+<section>
+  <h2>Problem</h2>
+  <p>Headlines and chatbots make confident market claims that cannot be traced to evidence. I wanted a system where every conclusion can be followed back to a named source, where "nothing unusual happened" is a valid and visible answer, and where the reasoning is stored so it can be checked later.</p>
+</section>
+
+<section>
+  <h2>What I did</h2>
+  <p>Specified and built Helm as a chain of explicit, stored steps: evidence, then a "Swell" (something meaningful appears to be changing), then a "Ripple" (a hypothesized downstream effect), then a quantitative "Vector" (a projection), then outcome, critique, and learning. It is deliberately not a language model reading headlines and emitting trades.</p>
+  <p><strong>My role:</strong> I design the architecture and rules, write the specifications, approve each build step, and verify results. AI coding agents write much of the code under those rules.</p>
+</section>
+
+<section>
+  <h2>How</h2>
+  <ul>
+    <li><strong>Blueprint-driven build:</strong> 18 module blueprints (contracts, storage and trace, local model runtime, data adapters, an Energy package, ledger, signal detection, projections, critic, orchestration, node transport, and operations) plus an acceptance harness.</li>
+    <li><strong>Data and sourcing:</strong> pulls official US Energy Information Administration weekly petroleum data and market prices, and tags every finding with its source, a reliability grade, and when it was collected.</li>
+    <li><strong>Signal rule:</strong> compares each week's change in commercial crude stocks with the prior 52 weeks as a z-score and fires only past a threshold of two standard deviations. The shaded band in the chart is the normal range and purple bars are signal weeks.</li>
+    <li><strong>Local-first:</strong> runs on my own machines with local models, no cloud-model dependency, and is read-only in its published view (links and actions disabled).</li>
+    <li><strong>Operations:</strong> a scheduled weekly run on the Brain machine, with the next run time shown on the report.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Results</h2>
+  <ul>
+    <li>A working weekly pipeline: the latest run completed on October 29, 2026 and produced the report above, correctly concluding "no signal" for the week ending October 23 (a 1.892 million barrel draw, z = -0.31 against a ±2 threshold).</li>
+    <li>Full traceability: each statement in the report links to an official source and a collection time.</li>
+    <li>All 18 blueprints and the acceptance harness are built, and the offline acceptance gates pass.</li>
+    <li>Honest current state: the signal is a rule baseline with no trained model yet. Real-world predictive value has not been established.</li>
+  </ul>
+  <p class="note">Research and educational only. Nothing here is investment advice.</p>
+</section>
+
+<section>
+  <p><a href="../q-ecosystem/">Helm is part of my Q Ecosystem →</a></p>
+</section>
+</main>
+<footer><a href="../../">← Back to portfolio</a></footer>
+</body>
+</html>
